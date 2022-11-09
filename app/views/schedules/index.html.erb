@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Horarios de la sucursal: <% @branch.name %>  </h1>
+
+<div id="schedules">
+  <% @schedules.each do |schedule| %>
+    <%= render schedule %>
+    <p>
+    </p>
+  <% end %>
+</div>

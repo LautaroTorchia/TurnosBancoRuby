@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  open_at: 2022-11-09 20:28:57
+  close_at: 2022-11-09 20:28:57
+  day: MyString
+  branch: one
+
+two:
+  open_at: 2022-11-09 20:28:57
+  close_at: 2022-11-09 20:28:57
+  day: MyString
+  branch: two
