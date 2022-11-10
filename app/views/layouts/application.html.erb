@@ -11,7 +11,13 @@
 
   <body>
   <%= render 'home/header' %>
-    <%= yield %>
+  <div class="container">
+   <br/>
+    <% if notice %>
+      <%= render 'layouts/alerts' %>
+    <% end %>
+      <%= yield %>
+  </div>
 
      <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

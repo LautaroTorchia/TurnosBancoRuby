@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Horarios de la sucursal <%= @branch.name %>  </h1>
 
 <div id="schedules">
@@ -30,4 +28,5 @@
   </table>
 <% end %>
 <%= link_to "Agregar Horarios", new_branch_schedule_path,  class: "btn btn-info" %>
+<%= link_to "Volver al listado de sucursales", branches_path,  class: "btn btn-dark" %>
 </div>
