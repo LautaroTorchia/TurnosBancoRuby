@@ -1,0 +1,1 @@
+• Eliminar una sucursal, siempre y cuando no tenga turnos pendientes de ser atendidos

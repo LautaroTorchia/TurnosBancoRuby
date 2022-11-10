@@ -1,3 +1,3 @@
 class Branch < ApplicationRecord
-    has_many :schemas
+    has_many :schedules
 end

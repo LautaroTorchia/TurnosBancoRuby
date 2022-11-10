@@ -27,6 +27,8 @@ class SchedulesController < ApplicationController
 
     respond_to do |format|
       if @schedule.save
+        @branch.schedules << @schedule
+        @branch.save
         format.html { redirect_to branch_schedule_url(@branch,@schedule), notice: "Schedule was successfully created." }
         format.json { render :show, status: :created, location: @schedule }
       else

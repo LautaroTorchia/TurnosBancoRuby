@@ -1,8 +1,6 @@
 <%= form_with(model: schedule,url: branch_schedules_path ) do |form| %>
   <% if schedule.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
-
       <ul>
         <% schedule.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -12,18 +10,19 @@
   <% end %>
 
   <div class="field form-group">
-    <%= form.label :open_at, style: "display: block" %>
+    <%= form.label "Abre a las", style: "display: block" %>
     <%= form.time_field :open_at,class:"form-control" %>
   </div>
 
   <div class="field form-group">
-    <%= form.label :close_at, style: "display: block" %>
+    <%= form.label "Cierra a las", style: "display: block" %>
     <%= form.time_field :close_at,class:"form-control" %>
   </div>
 
   <div class="field form-group">
-    <%= form.label :day, style: "display: block" %>
-    <%= form.text_field :day,class:"form-control" %>
+    <%= form.label "Dia", style: "display: block" %>
+    <%= form.select :day, options_for_select(["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"], schedule.day) %>
+    <%=  %>
   </div>
 
   <div class="field form-group">
