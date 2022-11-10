@@ -1,14 +1,29 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Branches</h1>
-
+<h1>Sucursales</h1>
 <div id="branches">
-  <% @branches.each do |branch| %>
-    <%= render branch %>
-    <p>
-      <%= link_to "Show this branch", branch %>
-    </p>
-  <% end %>
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>telefono</th>
+        <th>Mostrar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @branches.each do |branch| %>
+        <tr>
+          <td><%= branch.name %></td>
+          <td><%= branch.address %></td>
+          <td><%= branch.phone_number %></td>
+          <td> <%= link_to "Vista detallada", branch, class: "btn btn-outline-info btn-sm" %> </td>
+        </tr>
+         <% end %>
+    </tbody>
+  </table>
+<div>
+
 </div>
 
-<%= link_to "New branch", new_branch_path %>
+<%= link_to "Nueva Sucursal", new_branch_path, class: "btn btn-info" %>

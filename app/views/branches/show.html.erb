@@ -1,10 +1,19 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @branch %>
-
+<div class="jumbotron">
+  <h1 class="display-4">
+    Nombre: <%= @branch.name %>
+  </h1>
+  <p class="lead">
+    Direccion: <%= @branch.address %>  | 
+    Telefono: <%= @branch.phone_number %>  
+  </p>
+  <br/>
 <div>
-  <%= link_to "Edit this branch", edit_branch_path(@branch) %> |
-  <%= link_to "Back to branches", branches_path %>
+  <div class='d-flex '>
+    <%= link_to "Editar sucursal", edit_branch_path(@branch),  class: "btn btn-secondary"  %> 
+    <%= button_to "Borrar sucursal", @branch, method: :delete, class: "btn btn-danger"%>
+    <%= link_to "Volver", branches_path,  class: "btn btn-dark"%>
+  <div>
 
-  <%= button_to "Destroy this branch", @branch, method: :delete %>
 </div>
