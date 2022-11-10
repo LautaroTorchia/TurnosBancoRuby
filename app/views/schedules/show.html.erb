@@ -1,10 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @schedule %>
+<div class="jumbotron">
+  <h1 class="display-4">
+    Dia: <%= @schedule.day %>
+  </h1>
+  <p class="lead">
+    Abre a las: <%= @schedule.open_at.strftime("%H:%M:%S") %>  | 
+    Cierra a las: <%= @schedule.close_at.strftime("%H:%M:%S") %>  
+  </p>
+  <br/>
+<div>
 
 <div>
-  <%= link_to "Edit this schedule", edit_schedule_path(@schedule) %> |
-  <%= link_to "Back to schedules", schedules_path %>
+  <div class='d-flex'>
+  <%= link_to "Editar Horario", edit_branch_schedule_path(@schedule),class: "btn btn-secondary" %> 
+  <%= button_to "Eliminar Horario",branch_schedule_url(@branch,@schedule), method: :delete,class: "btn btn-danger" %> 
+  <%= link_to "Volver al listado", branch_schedules_path,class: "btn btn-dark"%>
+  </div>
 
-  <%= button_to "Destroy this schedule", @schedule, method: :delete %>
 </div>

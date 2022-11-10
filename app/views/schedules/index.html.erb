@@ -1,11 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Horarios de la sucursal: <%= @branch.name %>  </h1>
+<h1>Horarios de la sucursal <%= @branch.name %>  </h1>
 
 <div id="schedules">
-  <% @schedules.each do |schedule| %>
-    <%= render schedule %>
-    <p>
-    </p>
-  <% end %>
+
+
+<% if @schedules.blank? %>
+  <h3> Todavia no tiene asignado horarios </h3>
+<% else %>
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Abre a las</th>
+        <th>Cierra a las</th>
+        <th>Dia</th>
+        <th>Mostrar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @schedules.each do |schedule| %>
+        <tr>
+          <td><%= schedule.open_at.strftime("%H:%M:%S") %></td>
+          <td><%= schedule.close_at.strftime("%H:%M:%S") %></td>
+          <td><%= schedule.day %></td>
+          <td> <%= link_to "Vista detallada", branch_schedule_url(@branch,schedule), class: "btn btn-outline-info btn-sm" %> </td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%= link_to "Agregar Horarios", new_branch_schedule_path,  class: "btn btn-info" %>
 </div>

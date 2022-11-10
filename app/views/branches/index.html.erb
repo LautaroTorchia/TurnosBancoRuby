@@ -9,6 +9,7 @@
         <th>Direccion</th>
         <th>telefono</th>
         <th>Mostrar</th>
+        <th>Horarios</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
           <td><%= branch.address %></td>
           <td><%= branch.phone_number %></td>
           <td> <%= link_to "Vista detallada", branch, class: "btn btn-outline-info btn-sm" %> </td>
+          <td> <%= link_to "Cambiar horarios", branch_schedules_path(branch), class: "btn btn-outline-info btn-sm" %>
         </tr>
          <% end %>
     </tbody>

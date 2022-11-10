@@ -5,7 +5,7 @@ class SchedulesController < ApplicationController
 
   # GET /schedules or /schedules.json
   def index
-    @schedules = Schedule.all
+    @schedules = Schedule.where(branch_id: @branch.id)
   end
 
   # GET /schedules/1 or /schedules/1.json
@@ -27,7 +27,7 @@ class SchedulesController < ApplicationController
 
     respond_to do |format|
       if @schedule.save
-        format.html { redirect_to schedule_url(@schedule), notice: "Schedule was successfully created." }
+        format.html { redirect_to branch_schedule_url(@branch,@schedule), notice: "Schedule was successfully created." }
         format.json { render :show, status: :created, location: @schedule }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class SchedulesController < ApplicationController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
-        format.html { redirect_to schedule_url(@schedule), notice: "Schedule was successfully updated." }
+        format.html { redirect_to branch_schedule_url(@schedule), notice: "Schedule was successfully updated." }
         format.json { render :show, status: :ok, location: @schedule }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class SchedulesController < ApplicationController
     @schedule.destroy
 
     respond_to do |format|
-      format.html { redirect_to schedules_url, notice: "Schedule was successfully destroyed." }
+      format.html { redirect_to branch_schedules_path, notice: "Schedule was successfully destroyed." }
       format.json { head :no_content }
     end
   end
