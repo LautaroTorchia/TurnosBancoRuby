@@ -15,18 +15,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_154331) do
   enable_extension "plpgsql"
 
   create_table "branches", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "phone_number"
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_branches_on_name", unique: true
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.time "open_at"
-    t.time "close_at"
-    t.string "day"
+    t.time "open_at", null: false
+    t.time "close_at", null: false
+    t.string "day", null: false
     t.bigint "branch_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

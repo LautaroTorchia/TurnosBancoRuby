@@ -25,19 +25,19 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    #check if passwords match
     if user_params[:password] != user_params[:password_confirmation]
       redirect_to new_user_path, notice: "Passwords do not match", class:"alert alert-danger"
     else
-      if user_params[:branch_id] != nil
+      if user_params[:branch] != nil
         user_data = user_params.merge({:role => "staff"})
+        user_data[:branch] = Branch.find_by(name: user_data[:branch])
       else
         user_data = user_params.merge({:role => "admin"})
       end
       @user = User.new(user_data)
       respond_to do |format|
         if @user.save
-          format.html { redirect_to user_url(@user), notice: "User was successfully created." }
+          format.html { redirect_to users_path, notice: "User was successfully created." }
           format.json { render :show, status: :created, location: @user }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -55,8 +55,12 @@ class UsersController < ApplicationController
         return redirect_to edit_user_path, notice: "Passwords do not match", class:"alert alert-danger"
       end
     end
+    user_data= user_params
+    if user_data[:branch] != nil
+      user_data[:branch] = Branch.find_by(name: user_data[:branch])
+    end
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(user_data)
         format.html { redirect_to users_path, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -84,6 +88,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email,:password,Branch.find_by(name: :branch),:password_confirmation)
+      params.require(:user).permit(:email,:password,:password_confirmation,:branch)
     end
 end
