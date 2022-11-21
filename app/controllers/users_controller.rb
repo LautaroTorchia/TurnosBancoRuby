@@ -1,14 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   # GET /users or /users.json
   def index
     @users = User.all
-  end
-
-  # GET /users/1 or /users/1.json
-  def show
   end
 
   # GET /users/new
@@ -17,9 +13,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def new_admin
+  # GET /users/new_admin
+
+  def admin_new
     @user = User.new
-    render "new_admin"
   end
 
   # GET /users/1/edit
@@ -31,11 +28,13 @@ class UsersController < ApplicationController
     #check if passwords match
     if user_params[:password] != user_params[:password_confirmation]
       redirect_to new_user_path, notice: "Passwords do not match", class:"alert alert-danger"
-    
     else
-      user_data = user_params.merge({:role => "staff"})
+      if user_params[:branch_id] != nil
+        user_data = user_params.merge({:role => "staff"})
+      else
+        user_data = user_params.merge({:role => "admin"})
+      end
       @user = User.new(user_data)
-
       respond_to do |format|
         if @user.save
           format.html { redirect_to user_url(@user), notice: "User was successfully created." }

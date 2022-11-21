@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   resources :users
+  scope :users do
+    get 'users/new_admin', to: 'users#admin_new', :as => 'new_admin'
+  end
+  
   resources :branches do
     resources :schedules
   end
