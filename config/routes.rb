@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  devise_for :users , controllers: { 
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
   resources :users
   scope :users do
     get 'users/new_admin', to: 'users#admin_new', :as => 'new_admin'
@@ -7,7 +13,6 @@ Rails.application.routes.draw do
   resources :branches do
     resources :schedules
   end
-  devise_for :users
 
   root 'home#index'
   get '/home/about', to: 'home#about', as: 'about'

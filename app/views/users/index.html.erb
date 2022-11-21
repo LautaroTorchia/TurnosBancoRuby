@@ -20,7 +20,11 @@
           <% else %>
             <td>Cliente</td>
           <% end %>
-          <td> <%= link_to "Editar usuario", edit_user_path(user), class: "btn btn-outline-info btn-sm" %> </td>
+          <% if current_user == user %>
+            <td> <%= link_to "Editar mi Perfil", edit_user_path(user), class: "btn btn-outline-success btn-sm" %> </td>
+          <% else %>
+            <td> <%= link_to "Editar usuario", edit_user_path(user), class: "btn btn-outline-info btn-sm" %> </td>
+          <% end %>
           <td> <%= button_to "Eliminar usuario", user, method: :delete, class: "btn btn-outline-danger btn-sm"%> </td>
         </tr>
       <% end %>

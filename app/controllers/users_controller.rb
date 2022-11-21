@@ -49,9 +49,15 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    #if password confirmation exists, check if passwords match
+    if user_params[:password_confirmation] != nil
+      if user_params[:password] != user_params[:password_confirmation]
+        return redirect_to edit_user_path, notice: "Passwords do not match", class:"alert alert-danger"
+      end
+    end
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+        format.html { redirect_to users_path, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }

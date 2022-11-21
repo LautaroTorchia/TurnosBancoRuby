@@ -22,9 +22,16 @@
       
       
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+  
+      <% if user_signed_in? %>
+        <%= link_to "Editar Perfil", edit_user_path(current_user), class:"btn btn-outline-success my-2 my-sm-0" %>
+        <li class="nav-item">
+          <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class:"btn btn-outline-danger my-2 my-sm-0" %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Iniciar sesión", new_user_session_path, class:"btn btn-outline-success my-2 my-sm-0" %>
+        </li>
+      <% end %>
   </div>
 </nav>
