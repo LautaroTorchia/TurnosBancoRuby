@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :branches do
     resources :schedules
   end
+  devise_for :users
+
   root 'home#index'
   get '/home/about', to: 'home#about', as: 'about'
 
