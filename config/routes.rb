@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
   resources :branches do
     resources :schedules
   end

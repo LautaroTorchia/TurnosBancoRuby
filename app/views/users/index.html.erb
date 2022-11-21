@@ -1,0 +1,33 @@
+<h1>Usuarios</h1>
+<div id="users">
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <% if user.role == 'admin' %>
+            <td>Administrador</td>
+          <% elsif user.role == 'staff' %>
+            <td>Personal Bancario</td>
+          <% else %>
+            <td>Cliente</td>
+          <% end %>
+          <td> <%= link_to "Editar usuario", edit_user_path(user), class: "btn btn-outline-info btn-sm" %> </td>
+          <td> <%= button_to "Eliminar usuario", user, method: :delete, class: "btn btn-outline-danger btn-sm"%> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<div>
+
+</div>
+
+<%= link_to "Crear cuenta de Staff", new_user_path, class: "btn btn-info" %>
