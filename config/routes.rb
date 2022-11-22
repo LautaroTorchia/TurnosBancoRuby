@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :users,  :path_prefix => 'my'
   resources :users
-  devise_for :users , controllers: { 
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-  }
   scope :users do
     get 'users/new_admin', to: 'users#admin_new', :as => 'new_admin'
   end
