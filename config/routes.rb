@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   devise_for :users,  :path_prefix => 'my'
   resources :users
   scope :users do
@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   resources :branches do
     resources :schedules
   end
-
+  resources :appointments
+  
   root 'home#index'
   get '/home/about', to: 'home#about', as: 'about'
 

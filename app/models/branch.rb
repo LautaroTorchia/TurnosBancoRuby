@@ -1,5 +1,6 @@
 class Branch < ApplicationRecord
     has_many :schedules
+    has_many :appointments
     
     validates :name, :presence => true
     validates :address, :presence => true

@@ -50,6 +50,7 @@ class BranchesController < ApplicationController
 
   # DELETE /branches/1 or /branches/1.json
   def destroy
+    #TODO: Add logic to not allow deletion if there are apointments in the branch
     @branch.destroy
 
     respond_to do |format|
