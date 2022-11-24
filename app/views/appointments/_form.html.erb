@@ -10,37 +10,20 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :client_id, style: "display: block" %>
-    <%= form.text_field :client_id %>
+  <div class="field form-group">
+    <%= form.label "Sucursal" , style: "display: block" ,class:"form-label" %>
+    <%= form.select :branch, options_for_select(Branch.all, appointment.branch) %>
   </div>
-
-  <div>
-    <%= form.label :branch_id, style: "display: block" %>
-    <%= form.text_field :branch_id %>
-  </div>
-
-  <div>
+  <div class="field form-group">
     <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
+    <%= form.datetime_field :date %>
   </div>
 
-  <div>
+  <div class="field form-group">
     <%= form.label :motive, style: "display: block" %>
     <%= form.text_field :motive %>
   </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :employee_id, style: "display: block" %>
-    <%= form.text_field :employee_id %>
-  </div>
-
+  
   <div>
     <%= form.submit %>
   </div>

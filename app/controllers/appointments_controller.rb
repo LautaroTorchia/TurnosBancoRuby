@@ -3,7 +3,13 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments or /appointments.json
   def index
-    @appointments = Appointment.all
+    if current_user.admin?
+      @appointments = Appointment.all
+    elsif current_user.staff?
+      @appointments = Appointment.where(branch_id: current_user.branch_id, date: Date.today)
+    else
+      @appointments = Appointment.where(client_id: current_user.id)
+    end
   end
 
   # GET /appointments/1 or /appointments/1.json
@@ -21,7 +27,12 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
-    @appointment = Appointment.new(appointment_params)
+    appointment_data= appointment_params
+    appointment_data[:client_id] = current_user.id
+    appointment_data[:status] = :pending
+    puts appointment_data
+    appointment_data[:branch] = Branch.find_by(name: appointment_data[:branch])
+    @appointment = Appointment.new(appointment_data)
 
     respond_to do |format|
       if @appointment.save
@@ -65,6 +76,6 @@ class AppointmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def appointment_params
-      params.require(:appointment).permit(:client_id, :branch_id, :date, :motive, :status, :employee_id)
+      params.require(:appointment).permit(:branch, :date, :motive, :status, :employee_id)
     end
 end

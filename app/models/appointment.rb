@@ -1,7 +1,7 @@
 class Appointment < ApplicationRecord
   belongs_to :client, class_name: 'User'
   belongs_to :branch
-  belongs_to :employee, class_name: 'User'
+  belongs_to :employee, class_name: 'User', optional: true
 
   enum status: [:pending, :canceled, :attended]
 
