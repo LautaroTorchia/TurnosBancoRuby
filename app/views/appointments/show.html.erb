@@ -1,10 +1,27 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @appointment %>
-
+<div class="jumbotron">
+  <h1 class="display-4">
+    Fecha y hora: <%= @appointment.date %> 
+  </h1>
+  <h1 class="display-4">
+    Sucursal: <%= @appointment.branch.name %>
+  </h1>
+  
+  <p class="lead">
+    Cliente: <%= @appointment.client.email %>  | 
+    Motivo: <%= @appointment.motive %> 
+    <% if @appointment.attended?%>
+      Estado: Atendido
+    <% elsif @appointment.pending? %>
+      Estado: Pendiente
+    <% else %>
+      Estado: Cancelado
+    <% end %>
+  </p>
+  <br/>
 <div>
-  <%= link_to "Edit this appointment", edit_appointment_path(@appointment) %> |
-  <%= link_to "Back to appointments", appointments_path %>
+  <div class='d-flex '>
 
-  <%= button_to "Destroy this appointment", @appointment, method: :delete %>
+    <%= link_to "Volver al listado", appointments_path,  class: "btn btn-primary" %>
+  <div>
+
 </div>

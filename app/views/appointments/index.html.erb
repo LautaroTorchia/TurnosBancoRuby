@@ -1,14 +1,108 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Appointments</h1>
-
 <div id="appointments">
-  <% @appointments.each do |appointment| %>
-    <%= render appointment %>
-    <p>
-      <%= link_to "Show this appointment", appointment %>
-    </p>
+  <% if current_user.user?%>
+    <h2> Turnos Actuales </h2>
+  <% elsif current_user.staff? %>
+    <h2> Turnos pendientes del <%= @date.day %>/<%= @date.month %> </h2>
+  <% else %>
+    <h2> Turnos </h2>
   <% end %>
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Cliente</th>
+        <th>Sucursal</th>
+        <th>Fecha y hora</th>
+        <th>Motivo</th>
+        <th>Estado</th>
+        <th>Detalle</th>
+        <% if current_user.staff? %>
+          <th>Confirmar</th>
+        <% end %>
+        <th>Cancelar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @actual_appointments.each do |appointment| %>
+          <tr>
+          <td><%= appointment.client.email %></td>
+          <td><%= appointment.branch.name %></td>
+          <td><%= appointment.date %></td>
+          <td><%= appointment.motive %></td>
+          <% if appointment.pending? %>
+            <td>Pendiente</td>
+          <% elsif appointment.canceled? %>
+            <td>Cancelado</td>
+          <% else %>
+            <td>Atendido</td>
+          <% end %>
+          <td> <%= link_to "Vista detallada", appointment, class: "btn btn-outline-info btn-sm" %> </td>
+          <% if current_user.staff? %>
+            <td> <%= button_to "Confirmar visita", appointment, method: :patch, class: "btn btn-outline-success btn-sm" %> </td>
+          <% end %>
+          <td> <%= button_to "Cancelar", appointment, method: :delete, class: "btn btn-outline-danger btn-sm"%> </td>
+          
+        </tr>
+      <% end.empty? %>
+        <tr>
+        <% if current_user.staff?%>
+          <td colspan="8">No hay Turnos para hoy</td>
+        <% elsif current_user.user? %>
+          <td colspan="8">No has hecho ningun turno</td>
+        <% else %>
+          <td colspan="8">No hay Turnos</td>
+        <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if current_user.user? or current_user.staff? %>
+    <h2> Turnos Finalizados </h2>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Cliente</th>
+          <th>Sucursal</th>
+          <th>Fecha y hora</th>
+          <th>Motivo</th>
+          <th>Estado</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @ended_appointments.each do |appointment| %>
+            <% if appointment.canceled? %>
+              <tr class="table-danger">
+            <% elsif appointment.attended? %>
+              <tr class="table-success">
+            <% end %>
+            <td><%= appointment.client.email %></td>
+            <td><%= appointment.branch.name %></td>
+            <td><%= appointment.date %></td>
+            <td><%= appointment.motive %></td>
+            <% if appointment.canceled? %>
+              <td>Cancelado</td>
+            <% else %>
+              <td>Atendido</td>
+            <% end %>
+            <td> <%= link_to "Vista detallada", appointment, class: "btn btn-outline-info btn-sm" %> </td>
+            
+          </tr>
+        <% end.empty? %>
+          <tr>
+          <% if current_user.staff?%>
+            <td colspan="8">No hay Turnos para hoy</td>
+          <% elsif current_user.user? %>
+            <td colspan="8">No has hecho ningun turno</td>
+          <% else %>
+            <td colspan="8">No hay Turnos</td>
+          <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if current_user.user? %>
+      <%= link_to "New appointment", new_appointment_path %>
+    <% end %>
+  <% end %>
+<div>
 </div>
-
-<%= link_to "New appointment", new_appointment_path %>

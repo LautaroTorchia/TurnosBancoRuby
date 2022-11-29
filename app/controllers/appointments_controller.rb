@@ -4,11 +4,15 @@ class AppointmentsController < ApplicationController
   # GET /appointments or /appointments.json
   def index
     if current_user.admin?
-      @appointments = Appointment.all
+      @actual_appointments= Appointment.all.order(date: :asc)
     elsif current_user.staff?
-      @appointments = Appointment.where(branch_id: current_user.branch_id, date: Date.today)
+      #get the appointments for today 
+      @actual_appointments = Appointment.where(status: :pending ,branch_id: current_user.branch.id, date: Date.today)
+      @ended_appointments= Appointment.where(status: [:attended,:canceled]).where(branch_id: current_user.branch.id, date: Date.today)
+      @date = Date.today
     else
-      @appointments = Appointment.where(client_id: current_user.id)
+      @ended_appointments= Appointment.where(status: [:attended,:canceled])
+      @actual_appointments = Appointment.where(status: :pending)
     end
   end
 
@@ -36,7 +40,7 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       if @appointment.save
-        format.html { redirect_to appointment_url(@appointment), notice: "Appointment was successfully created." }
+        format.html { redirect_to appointment_url(@appointment), notice: "Se registro el turno satisfactoriamente" }
         format.json { render :show, status: :created, location: @appointment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,10 +52,13 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1 or /appointments/1.json
   def update
     respond_to do |format|
-      if @appointment.update(appointment_params)
-        format.html { redirect_to appointment_url(@appointment), notice: "Appointment was successfully updated." }
+      @appointment.status = :attended
+      @appointment.employee_id = current_user.id
+    
+      if @appointment.save
+        format.html { redirect_to appointments_path, notice: "Se registro la visita al turno Satisfactoriamente" }
         format.json { render :show, status: :ok, location: @appointment }
-      else
+      else  
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @appointment.errors, status: :unprocessable_entity }
       end
@@ -60,12 +67,13 @@ class AppointmentsController < ApplicationController
 
   # DELETE /appointments/1 or /appointments/1.json
   def destroy
-    @appointment.destroy
+    @appointment.status = :canceled
+    @appointment.save
 
     respond_to do |format|
-      format.html { redirect_to appointments_url, notice: "Appointment was successfully destroyed." }
+      format.html { redirect_to appointments_url, notice: "Se cancelo el turno satisfactoriamente" }
       format.json { head :no_content }
-    end
+  end
   end
 
   private
