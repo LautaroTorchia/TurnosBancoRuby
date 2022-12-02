@@ -29,9 +29,8 @@ class UsersController < ApplicationController
     if user_params[:password] != user_params[:password_confirmation]
       redirect_to new_user_path, notice: "Passwords do not match", class:"alert alert-danger"
     else
-      if user_params[:branch] != nil
+      if user_params[:branch_id] != nil
         user_data = user_params.merge({:role => "staff"})
-        user_data[:branch] = Branch.find_by(name: user_data[:branch])
       else
         user_data = user_params.merge({:role => "admin"})
       end
@@ -89,6 +88,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email,:password,:password_confirmation,:branch)
+      params.require(:user).permit(:email,:password,:password_confirmation,:branch_id)
     end
 end

@@ -1,10 +1,10 @@
-<%= form_with(model: appointment) do |form| %>
-  <% if appointment.errors.any? %>
+<%= form_with(model: @appointment) do |form| %>
+  <% if @appointment.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+      <h2><%= pluralize(@appointment.errors.count, "error") %> prohibited this @appointment from being saved:</h2>
 
       <ul>
-        <% appointment.errors.each do |error| %>
+        <% @appointment.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -12,7 +12,7 @@
   <% end %>
   <div class="field form-group">
     <%= form.label "Sucursal" , style: "display: block" ,class:"form-label" %>
-    <%= form.select :branch, options_for_select(Branch.all, appointment.branch),class:"form-select" %>
+    <%= form.collection_select :branch_id, Branch.all, :id, :name, include_blank: false, class: "form-control" %>
   </div>
   <div class="field form-group">
     <%= form.label "Fecha y hora", style: "display: block" %>

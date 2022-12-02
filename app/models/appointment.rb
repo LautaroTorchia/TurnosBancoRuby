@@ -22,11 +22,11 @@ class Appointment < ApplicationRecord
   end
   
   def date_is_between_branch_schedule_hours
-    days=["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
-    puts days[date.wday], "asdksdaklasdk"
+    
+    days=["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
     if ! branch.schedules.find_by(day: days[date.wday]).nil?
-      my_day_open_at=  branch.schedules.find_by(day: days[1]).open_at
-      my_day_close_at= branch.schedules.find_by(day: days[1]).close_at
+      my_day_open_at=  branch.schedules.find_by(day: days[date.wday]).open_at
+      my_day_close_at= branch.schedules.find_by(day: days[date.wday]).close_at
       if date.present? && branch.present?
         if date.hour < my_day_open_at.hour || date.hour > my_day_close_at.hour
           errors.add(:date, "La fecha debe estar dentro del horario de la sucursal, 

@@ -14,7 +14,7 @@ class Ability
         can [:index, :show], Branch
         can [:index, :show], Schedule
         can [:index, :show], User, role: 'user'
-        can [:index, :show, :update], Appointment
+        can [:index, :show, :update,:destroy], Appointment
       elsif user.user?
         can [:index, :show,:create,:update], Appointment, client_id: user.id
         can [:update], User, id: user.id

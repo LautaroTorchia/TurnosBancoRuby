@@ -8,8 +8,14 @@ class AppointmentsController < ApplicationController
     if current_user.admin?
       @actual_appointments= Appointment.all.order(date: :asc)
     elsif current_user.staff?
-      @actual_appointments = Appointment.where(status: :pending ,branch_id: current_user.branch.id, date: Date.today)
-      @ended_appointments= Appointment.where(status: [:attended,:canceled]).where(branch_id: current_user.branch.id, date: Date.today)
+      puts DateTime.now 
+      #appointments of today and only today
+      @actual_appointments= Appointment.where("date >= ? AND date <= ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day)
+      .where(status: :pending ,branch_id: current_user.branch.id)
+
+      #appointments of today and only today
+      @ended_appointments= Appointment.where("date >= ? AND date <= ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day)
+      .where(status: [:attended,:canceled]).where(branch_id: current_user.branch.id)
       @date = Date.today
     else
       @ended_appointments= Appointment.where(status: [:attended,:canceled])
@@ -32,11 +38,11 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
-    puts "aaa"
+    puts "llegue aca reputo"
     appointment_data= appointment_params
     appointment_data[:client_id] = current_user.id
     appointment_data[:status] = :pending
-    appointment_data[:branch] = Branch.find_by(name: appointment_data[:branch])
+    puts appointment_data
     @appointment = Appointment.new(appointment_data)
 
     respond_to do |format|
@@ -85,6 +91,6 @@ class AppointmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through. allow branch name as a parameter
     def appointment_params
-      params.require(:appointment).permit(:branch, :date, :motive, :status, :employee_id, :observations)
+      params.require(:appointment).permit(:branch_id, :date, :motive, :status, :employee_id, :observations)
     end
 end
