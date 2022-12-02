@@ -18,7 +18,9 @@
         <% if current_user.staff? %>
           <th>Confirmar</th>
         <% end %>
-        <th>Cancelar</th>
+        <% if can? :update, Appointment %>
+          <th>Cancelar</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +41,9 @@
           <% if current_user.staff? %>
             <td> <%= button_to "Confirmar visita", appointment, method: :patch, class: "btn btn-outline-success btn-sm" %> </td>
           <% end %>
-          <td> <%= button_to "Cancelar", appointment, method: :delete, class: "btn btn-outline-danger btn-sm"%> </td>
+          <% if can? :update, Appointment %>
+            <td> <%= button_to "Cancelar", appointment, method: :delete, class: "btn btn-outline-danger btn-sm"%> </td>
+          <% end %>
           
         </tr>
       <% end.empty? %>
@@ -55,7 +59,7 @@
       <% end %>
     </tbody>
   </table>
-  <% if current_user.user? or current_user.staff? %>
+  <% if can? :update, Appointment %>
     <h2> Turnos Finalizados </h2>
     <table class="table table-striped table-bordered table-hover">
       <thead class="thead-dark">
@@ -100,8 +104,8 @@
         <% end %>
       </tbody>
     </table>
-    <% if current_user.user? %>
-      <%= link_to "New appointment", new_appointment_path %>
+    <% if can? :create, Appointment %>
+      <%= link_to "Crear nueva turno", new_appointment_path, class:"btn btn-info" %>
     <% end %>
   <% end %>
 <div>

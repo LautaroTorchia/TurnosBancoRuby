@@ -1,15 +1,15 @@
-<h2>Forgot your password?</h2>
+<h2>Olvidaste tu Contraseña?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+<%= form_for(resource, as: resource_name,class:"width: 23rem;", url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="field form-outline mb-4">
+    <%= f.label "Email",class:"form-label" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control form-control-lg" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit "Enviar instrucciones de reinicio",class:"btn btn-info btn-lg btn-block" %>
   </div>
 <% end %>
 

@@ -12,19 +12,17 @@
   <% end %>
   <div class="field form-group">
     <%= form.label "Sucursal" , style: "display: block" ,class:"form-label" %>
-    <%= form.select :branch, options_for_select(Branch.all, appointment.branch) %>
+    <%= form.select :branch, options_for_select(Branch.all, appointment.branch),class:"form-select" %>
   </div>
   <div class="field form-group">
-    <%= form.label :date, style: "display: block" %>
-    <%= form.datetime_field :date %>
+    <%= form.label "Fecha y hora", style: "display: block" %>
+    <%= form.datetime_field :date, class:"form-control" %>
   </div>
-
   <div class="field form-group">
-    <%= form.label :motive, style: "display: block" %>
-    <%= form.text_field :motive %>
+    <%= form.label "Motivo", style: "display: block" %>
+    <%= form.text_field :motive,class:"form-control" %>
   </div>
-  
   <div>
-    <%= form.submit %>
+    <%= form.submit "Crear turno",class:"btn btn-info" %>
   </div>
 <% end %>

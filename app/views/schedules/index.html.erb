@@ -27,6 +27,8 @@
     </tbody>
   </table>
 <% end %>
-<%= link_to "Agregar Horarios", new_branch_schedule_path,  class: "btn btn-info" %>
+<% if can? :create, Schedule %>
+  <%= link_to "Agregar Horarios", new_branch_schedule_path,  class: "btn btn-info" %>
+<% end %>
 <%= link_to "Volver al listado de sucursales", branches_path,  class: "btn btn-dark" %>
 </div>

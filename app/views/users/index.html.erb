@@ -5,8 +5,10 @@
       <tr>
         <th>Email</th>
         <th>Rol</th>
+        <% if can? :destroy, User%>
         <th>Editar</th>
         <th>Eliminar</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -20,19 +22,21 @@
           <% else %>
             <td>Cliente</td>
           <% end %>
-          <% if current_user == user %>
-            <td> <%= link_to "Editar mi Perfil", edit_user_path(user), class: "btn btn-outline-success btn-sm" %> </td>
-          <% else %>
-            <td> <%= link_to "Editar usuario", edit_user_path(user), class: "btn btn-outline-info btn-sm" %> </td>
-          <% end %>
+          <% if can? :destroy, user%>
+            <% if current_user == user %>
+              <td> <%= link_to "Editar mi Perfil", edit_user_path(user), class: "btn btn-outline-success btn-sm" %> </td>
+            <% else %>
+              <td> <%= link_to "Editar usuario", edit_user_path(user), class: "btn btn-outline-info btn-sm" %> </td>
+            <% end %>
           <td> <%= button_to "Eliminar usuario", user, method: :delete, class: "btn btn-outline-danger btn-sm"%> </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
 <div>
-
+  <% if can? :create, User %>
+    <%= link_to "Crear cuenta de Staff", new_user_path, class: "btn btn-info" %>
+    <%= link_to "Crear cuenta de Admin", new_admin_path, class: "btn btn-info" %>
+  <% end %>
 </div>
-
-<%= link_to "Crear cuenta de Staff", new_user_path, class: "btn btn-info" %>
-<%= link_to "Crear cuenta de Admin", new_admin_path, class: "btn btn-info" %>

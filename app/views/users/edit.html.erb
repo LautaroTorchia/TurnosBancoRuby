@@ -8,5 +8,9 @@
 <br>
 
 <div>
-  <%= link_to "Volver al listado", users_path,class: "btn btn-dark" %>
+  <% if can? :index, User %>
+    <%= link_to "Volver al listado", users_path,class: "btn btn-dark" %>
+  <% else %>
+    <%= link_to "Volver al Inicio", root_path,class: "btn btn-dark" %>
+  <% end %>
 </div>

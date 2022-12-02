@@ -9,8 +9,12 @@
   <br/>
 <div>
   <div class='d-flex '>
-    <%= link_to "Editar sucursal", edit_branch_path(@branch),  class: "btn btn-secondary"  %> 
-    <%= button_to "Borrar sucursal", @branch, method: :delete, class: "btn btn-danger"%>
+    <%  if can? :update, @branch %>
+      <%= link_to "Editar sucursal", edit_branch_path(@branch) ,class: "btn btn-secondary"  %> 
+    <% end %>
+    <% if can? :destroy, @branch %>
+      <%= button_to "Borrar sucursal", @branch, method: :delete, class: "btn btn-danger"%>
+    <% end %>
     <%= link_to "Volver al listado", branches_path,  class: "btn btn-dark"%>
   <div>
 

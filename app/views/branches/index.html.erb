@@ -16,8 +16,9 @@
           <td><%= branch.name %></td>
           <td><%= branch.address %></td>
           <td><%= branch.phone_number %></td>
-          <td> <%= link_to "Vista detallada", branch, class: "btn btn-outline-info btn-sm" %> </td>
-          <td> <%= link_to "Cambiar horarios", branch_schedules_path(branch), class: "btn btn-outline-info btn-sm" %>
+          <td> <%= link_to "Detalles", branch, class: "btn btn-outline-info btn-sm" %> </td>
+
+          <td> <%= link_to "Horarios", branch_schedules_path(branch), class: "btn btn-outline-info btn-sm" %>
         </tr>
          <% end %>
     </tbody>
@@ -26,4 +27,6 @@
 
 </div>
 
-<%= link_to "Nueva Sucursal", new_branch_path, class: "btn btn-info" %>
+<% if can? :create , Branch%>
+  <%= link_to "Nueva Sucursal", new_branch_path ,class: "btn btn-info" %>
+<% end %>

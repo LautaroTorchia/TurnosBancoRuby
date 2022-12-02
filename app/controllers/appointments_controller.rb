@@ -1,12 +1,13 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /appointments or /appointments.json
   def index
     if current_user.admin?
       @actual_appointments= Appointment.all.order(date: :asc)
     elsif current_user.staff?
-      #get the appointments for today 
       @actual_appointments = Appointment.where(status: :pending ,branch_id: current_user.branch.id, date: Date.today)
       @ended_appointments= Appointment.where(status: [:attended,:canceled]).where(branch_id: current_user.branch.id, date: Date.today)
       @date = Date.today
@@ -34,7 +35,6 @@ class AppointmentsController < ApplicationController
     appointment_data= appointment_params
     appointment_data[:client_id] = current_user.id
     appointment_data[:status] = :pending
-    puts appointment_data
     appointment_data[:branch] = Branch.find_by(name: appointment_data[:branch])
     @appointment = Appointment.new(appointment_data)
 

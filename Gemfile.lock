@@ -96,6 +96,8 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.11.0)
+    faker (3.0.0)
+      i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -225,6 +227,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.8)
+  faker (~> 3.0)
   importmap-rails
   jbuilder
   pg (~> 1.1)

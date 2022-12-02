@@ -1,14 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /users or /users.json
   def index
-    if current_user.admin?
-      @users = User.all
-    else
-      @users = User.where(role: "user")
-    end
+    @users = User.accessible_by(current_ability)
   end
 
   # GET /users/new

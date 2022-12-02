@@ -1,6 +1,9 @@
 <div class="jumbotron">
   <h1 class="display-4">
-    Fecha y hora: <%= @appointment.date %> 
+    Fecha: <%= @appointment.date.strftime('%Y-%m-%d')%> 
+  </h1>
+  <h1 class="display-4">
+    Hora: <%= @appointment.date.strftime('%H:%M') %> 
   </h1>
   <h1 class="display-4">
     Sucursal: <%= @appointment.branch.name %>

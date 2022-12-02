@@ -1,8 +1,8 @@
 class SchedulesController < ApplicationController
-  #make a before action
   before_action :set_branch 
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /schedules or /schedules.json
   def index
