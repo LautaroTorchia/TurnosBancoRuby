@@ -32,6 +32,7 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
+    puts "aaa"
     appointment_data= appointment_params
     appointment_data[:client_id] = current_user.id
     appointment_data[:status] = :pending
@@ -82,8 +83,8 @@ class AppointmentsController < ApplicationController
       @appointment = Appointment.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Only allow a list of trusted parameters through. allow branch name as a parameter
     def appointment_params
-      params.require(:appointment).permit(:branch, :date, :motive, :status, :employee_id)
+      params.require(:appointment).permit(:branch, :date, :motive, :status, :employee_id, :observations)
     end
 end

@@ -6,6 +6,7 @@ class CreateAppointments < ActiveRecord::Migration[7.0]
       t.datetime :date, null: false
       t.string :motive, null: false
       t.integer :status, null: false, default: 0
+      t.text :observations, null: true
       t.references :employee, null: true, foreign_key: { to_table: :users }
 
       t.timestamps

@@ -39,7 +39,7 @@
           <% end %>
           <td> <%= link_to "Vista detallada", appointment, class: "btn btn-outline-info btn-sm" %> </td>
           <% if current_user.staff? %>
-            <td> <%= button_to "Confirmar visita", appointment, method: :patch, class: "btn btn-outline-success btn-sm" %> </td>
+            <td> <%= link_to "Confirmar visita", edit_appointment_path(appointment), class: "btn btn-outline-success btn-sm" %> </td>
           <% end %>
           <% if can? :update, Appointment %>
             <td> <%= button_to "Cancelar", appointment, method: :delete, class: "btn btn-outline-danger btn-sm"%> </td>
