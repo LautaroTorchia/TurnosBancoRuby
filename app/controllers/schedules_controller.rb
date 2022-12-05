@@ -30,7 +30,7 @@ class SchedulesController < ApplicationController
       if @schedule.save
         @branch.schedules << @schedule
         @branch.save
-        format.html { redirect_to branch_schedule_url(@branch,@schedule), notice: "Schedule was successfully created." }
+        format.html { redirect_to branch_schedule_url(@branch,@schedule), notice: "El horario fue correctamente creado." }
         format.json { render :show, status: :created, location: @schedule }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class SchedulesController < ApplicationController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
-        format.html { redirect_to branch_schedule_url(@schedule), notice: "Schedule was successfully updated." }
+        format.html { redirect_to branch_schedule_url(@schedule), notice: "EL horario fue correctamente actualizado." }
         format.json { render :show, status: :ok, location: @schedule }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class SchedulesController < ApplicationController
     @schedule.destroy
 
     respond_to do |format|
-      format.html { redirect_to branch_schedules_path, notice: "Schedule was successfully destroyed." }
+      format.html { redirect_to branch_schedules_path, notice: "EL horario fue correctamente borrado." }
       format.json { head :no_content }
     end
   end

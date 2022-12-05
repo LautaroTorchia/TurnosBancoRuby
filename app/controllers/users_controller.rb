@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     if user_params[:password] != user_params[:password_confirmation]
-      redirect_to new_user_path, notice: "Passwords do not match", class:"alert alert-danger"
+      redirect_to new_user_path, notice: "Las contraseñas no coinciden", class:"alert alert-danger"
     else
       if user_params[:branch_id] != nil
         user_data = user_params.merge({:role => "staff"})
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       @user = User.new(user_data)
       respond_to do |format|
         if @user.save
-          format.html { redirect_to users_path, notice: "User was successfully created." }
+          format.html { redirect_to users_path, notice: "El usuario fue correctamente creado." }
           format.json { render :show, status: :created, location: @user }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -52,16 +52,13 @@ class UsersController < ApplicationController
     #if password confirmation exists, check if passwords match
     if user_params[:password_confirmation] != nil
       if user_params[:password] != user_params[:password_confirmation]
-        return redirect_to edit_user_path, notice: "Passwords do not match", class:"alert alert-danger"
+        return redirect_to edit_user_path, notice: "Las contraseñas no coinciden", class:"alert alert-danger"
       end
     end
     user_data= user_params
-    if user_data[:branch] != nil
-      user_data[:branch] = Branch.find_by(name: user_data[:branch])
-    end
     respond_to do |format|
       if @user.update(user_data)
-        format.html { redirect_to users_path, notice: "User was successfully updated." }
+        format.html { redirect_to users_path, notice: "El usuario fue actualizado correctamente." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -75,7 +72,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to users_url, notice: "El usuario fue correctamente borrado." }
       format.json { head :no_content }
     end
   end

@@ -8,12 +8,9 @@ class AppointmentsController < ApplicationController
     if current_user.admin?
       @actual_appointments= Appointment.all.order(date: :asc)
     elsif current_user.staff?
-      puts DateTime.now 
-      #appointments of today and only today
       @actual_appointments= Appointment.where("date >= ? AND date <= ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day)
       .where(status: :pending ,branch_id: current_user.branch.id)
 
-      #appointments of today and only today
       @ended_appointments= Appointment.where("date >= ? AND date <= ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day)
       .where(status: [:attended,:canceled]).where(branch_id: current_user.branch.id)
       @date = Date.today
@@ -38,15 +35,16 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
-    puts "llegue aca reputo"
     appointment_data= appointment_params
     appointment_data[:client_id] = current_user.id
     appointment_data[:status] = :pending
-    puts appointment_data
     @appointment = Appointment.new(appointment_data)
 
     respond_to do |format|
       if @appointment.save
+        @branch= Branch.find(@appointment.branch_id)
+        @branch.appointments << @appointment
+        @branch.save
         format.html { redirect_to appointment_url(@appointment), notice: "Se registro el turno satisfactoriamente" }
         format.json { render :show, status: :created, location: @appointment }
       else
@@ -59,15 +57,21 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1 or /appointments/1.json
   def update
     respond_to do |format|
-      @appointment.status = :attended
-      @appointment.employee_id = current_user.id
-    
-      if @appointment.save
-        format.html { redirect_to appointments_path, notice: "Se registro la visita al turno Satisfactoriamente" }
-        format.json { render :show, status: :ok, location: @appointment }
-      else  
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
+      #if attribute observations is empty, then redirect back to edit page
+      if appointment_params[:observations].blank?
+        format.html { redirect_to edit_appointment_url(@appointment), notice: "Debe ingresar una observacion sobre el turno" }
+      else
+        @appointment.status = :attended
+        @appointment.employee_id = current_user.id
+        @appointment.observations = appointment_params[:observations]
+      
+        if @appointment.save
+          format.html { redirect_to appointments_path, notice: "Se registro la visita al turno Satisfactoriamente" }
+          format.json { render :show, status: :ok, location: @appointment }
+        else  
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @appointment.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

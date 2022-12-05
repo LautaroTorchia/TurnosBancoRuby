@@ -40,7 +40,7 @@ class BranchesController < ApplicationController
   def update
     respond_to do |format|
       if @branch.update(branch_params)
-        format.html { redirect_to branch_url(@branch), notice: "Branch was successfully updated." }
+        format.html { redirect_to branch_url(@branch), notice: "La sucursal fue correctamente actualizada." }
         format.json { render :show, status: :ok, location: @branch }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,12 +51,25 @@ class BranchesController < ApplicationController
 
   # DELETE /branches/1 or /branches/1.json
   def destroy
-    #TODO: Add logic to not allow deletion if there are apointments in the branch
-    @branch.destroy
+    #Add logic to not allow deletion if there are pending apointments in the branch copilot
+    branch_appointments=@branch.appointments.filter { |appointment| appointment.pending? } 
+    branch_employees= User.where(branch_id: @branch.id)
+    if branch_appointments.any? || branch_employees.any?
+      redirect_to branch_url(@branch), notice: "No se puede borrar la sucursal porque tiene citas pendientes o empleados asignados"
+    else 
+      @branch.appointments.each do |appointment|
+        appointment.destroy
+      end
+      @branch.schedules.each do |schedule|
+        schedule.destroy
+      end
 
-    respond_to do |format|
-      format.html { redirect_to branches_url, notice: "Branch was successfully destroyed." }
-      format.json { head :no_content }
+      @branch.destroy
+
+      respond_to do |format|
+        format.html { redirect_to branches_url, notice: "La sucursal fue correctamente borrada." }
+        format.json { head :no_content }
+      end
     end
   end
 

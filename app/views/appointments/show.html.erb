@@ -12,18 +12,27 @@
   <p class="lead">
     Cliente: <%= @appointment.client.email %>  | 
     Motivo: <%= @appointment.motive %> 
-    <% if @appointment.attended?%>
+   
+  </p>
+  <p class="lead">
+   <% if @appointment.attended?%>
       Estado: Atendido
     <% elsif @appointment.pending? %>
       Estado: Pendiente
     <% else %>
       Estado: Cancelado
     <% end %>
+    | 
+    <%if @appointment.attended? %>
+      Comentario de la cita: <%= @appointment.observations %>
+    <% end %>
   </p>
   <br/>
 <div>
   <div class='d-flex '>
-
+    <% if @appointment.pending? %>
+      <%= button_to "Cancelar cita", @appointment, method: :delete, class: "btn btn-danger"%>
+    <% end %>
     <%= link_to "Volver al listado", appointments_path,  class: "btn btn-primary" %>
   <div>
 

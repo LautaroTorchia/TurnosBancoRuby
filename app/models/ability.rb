@@ -9,7 +9,7 @@ class Ability
         can [:index, :show, :create, :update, :destroy], Branch
         can [:index, :show, :create, :update, :destroy], Schedule
         can [:index, :show, :create,:admin_new, :update, :destroy], User
-        can [:index, :show], Appointment
+        can [:index, :show, :destroy], Appointment
       elsif user.staff?
         can [:index, :show], Branch
         can [:index, :show], Schedule

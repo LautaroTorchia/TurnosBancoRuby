@@ -18,7 +18,7 @@
   <% if @user.role == "staff" %>
     <div class="field form-group">
       <%= form.label "Sucursal", style: "display: block" %>
-      <%= form.select :branch, options_for_select(Branch.all, @user.branch) %>
+      <%= form.collection_select :branch_id, Branch.all, :id, :name, include_blank: false, class: "form-control" %>
     </div>
   <% end %>
 
