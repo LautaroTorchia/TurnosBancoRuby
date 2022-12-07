@@ -12,7 +12,7 @@
 <div>
   <div class='d-flex'>
   <% if can? :update, @schedule %>
-    <%= link_to "Editar Horario", edit_branch_schedule_path(@schedule),class: "btn btn-secondary" %> 
+    <%= link_to "Editar Horario", edit_branch_schedule_path(@branch,@schedule),class: "btn btn-secondary" %> 
   <% end %>
   <% if can? :destroy, @schedule %>
     <%= button_to "Eliminar Horario",branch_schedule_url(@branch,@schedule), method: :delete,class: "btn btn-danger" %> 

@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     end
     user_data= user_params
     respond_to do |format|
-      if @user.update(user_data)
+      if @user.update(user_data.compact_blank())
         format.html { redirect_to users_path, notice: "El usuario fue actualizado correctamente." }
         format.json { render :show, status: :ok, location: @user }
       else

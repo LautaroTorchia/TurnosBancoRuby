@@ -23,7 +23,7 @@
 
   <div class="field form-group">
     <%= form.label :day, style: "display: block" %>
-    <%= form.text_field :day,class:"form-control" %>
+    <%= form.select :day, options_for_select(["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"], schedule.day) %>
   </div>
 
   <div class="field form-group">
@@ -31,6 +31,6 @@
   </div>
 
   <div>
-    <%= form.submit class:'btn btn-secondary' %>
+    <%= form.submit "Actualizar Horario",class:'btn btn-secondary' %>
   </div>
 <% end %>

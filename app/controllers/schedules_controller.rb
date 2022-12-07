@@ -43,7 +43,7 @@ class SchedulesController < ApplicationController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
-        format.html { redirect_to branch_schedule_url(@schedule), notice: "EL horario fue correctamente actualizado." }
+        format.html { redirect_to branch_schedule_url(@branch,@schedule), notice: "El horario fue correctamente actualizado." }
         format.json { render :show, status: :ok, location: @schedule }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class SchedulesController < ApplicationController
     @schedule.destroy
 
     respond_to do |format|
-      format.html { redirect_to branch_schedules_path, notice: "EL horario fue correctamente borrado." }
+      format.html { redirect_to branch_schedules_path, notice: "El horario fue correctamente borrado." }
       format.json { head :no_content }
     end
   end
