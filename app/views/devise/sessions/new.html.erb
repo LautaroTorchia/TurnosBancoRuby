@@ -3,6 +3,7 @@
           <%= form_for(resource, as: resource_name, class:"width: 23rem;", url: session_path(resource_name)) do |f| %>
 
             <h2 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Iniciar Sesion</h2>
+            <p class="alert"><%= alert %></p>
 
             <div class="field form-outline mb-4">
               <%= f.email_field :email, autofocus: true,class:"form-control form-control-lg",id:"form2Example18" %>

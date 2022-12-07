@@ -95,6 +95,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.10.2)
+      devise (>= 4.8.0)
     erubi (1.11.0)
     faker (3.0.0)
       i18n (>= 1.8.11, < 2)
@@ -227,6 +229,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.8)
+  devise-i18n
   faker (~> 3.0)
   importmap-rails
   jbuilder

@@ -4,6 +4,10 @@ class Schedule < ApplicationRecord
   validates :open_at, :presence => true
   validates :close_at, :presence => true
   validates :day, :presence => true
+  validates_presence_of :open_at, message: 'Debe especificar una hora de apertura'
+  validates_presence_of :close_at, message: 'Debe especificar una hora de cierre'
+  validates_presence_of :day, message: 'Debe especificar un dia'
+  
   validates :day, inclusion: { in: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
     message: "%{value} no es un dia valido" }
   

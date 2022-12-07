@@ -1,7 +1,7 @@
 <%= form_with(model: @user) do |form| %>
   <% if @user.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(@user.errors.count, "error") %> No se puede registrar el Usuario:</h2>
+      <h2> No se puede registrar el Usuario:</h2>
       <ul>
         <% @user.errors.each do |error| %>
           <li><%= error.full_message %></li>
