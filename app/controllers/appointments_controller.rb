@@ -15,8 +15,8 @@ class AppointmentsController < ApplicationController
       .where(status: [:attended,:canceled]).where(branch_id: current_user.branch.id)
       @date = Date.today
     else
-      @ended_appointments= Appointment.where(status: [:attended,:canceled])
-      @actual_appointments = Appointment.where(status: :pending)
+      @ended_appointments= Appointment.where(status: [:attended,:canceled], client_id: current_user.id)
+      @actual_appointments = Appointment.where(status: :pending, client_id: current_user.id)
     end
   end
 
