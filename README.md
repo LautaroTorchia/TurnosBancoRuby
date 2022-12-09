@@ -38,10 +38,10 @@ La decision de usar este esquema de clases se tomo a partir de los requerimiento
 
 En cuanto a las constrains de borrado dentro de la aplicacion, se presentaron varias decisiones y estas fueron las decisiones que tome:
 
-   -Appointment no se puede borrar fisicamente por su cuenta, pero los turnos cancelados o aceptados pueden ser borrados en algunos casos
-   -Branch se puede borrar solo si no existen turnos pendientes en esa sucursal y no existe personal asignado a ella
-   -Schedule se puede borrar siempre
-   -User se puede borrar siempre
+   - Appointment no se puede borrar fisicamente por su cuenta, pero los turnos cancelados o aceptados pueden ser borrados en algunos casos
+   - Branch se puede borrar solo si no existen turnos pendientes en esa sucursal y no existe personal asignado a ella
+   - Schedule se puede borrar siempre
+   - User se puede borrar siempre
 
    En cuanto a la decision de la sucursal, determine que no tendria sentido borrar una sucursal en donde hay un turno con estado pendiente, ya que este quedaria en el vacio y no me parecia correcto eliminarlo sin aviso al usuario, por lo que determine no permitir el borrado en ese caso. En cuanto al personal, decidi no poder borrar si el personal esta asignado a ella ya que las alternativas, como por ejemplo el borrado del personal asociado a una sucursal cuando se borra la misma, no me parecio optimo
    Por otra parte, el borrado de los turnos, tome la decision de que no se puedan borrar los turnos por su cuenta ya que me parecia una tarea innecesaria y que era mejor conservar la informacion dentro de la BD. Eso si, si una sucursal es borrada, tambien se borran todos sus turnos cancelados o aceptados. Esto es asi ya que sino permitirian que existan turnos fantasmas las cuales su sucursal no existe y por eso tome esta decision.
