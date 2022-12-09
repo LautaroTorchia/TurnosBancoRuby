@@ -7,7 +7,7 @@
     * Ruby on rails gem 7.0.4 (gem install rails)
     * Postgresql DBMS y crear una database llamada turnosbanco_development
 
-Para crear Postgresql seguir cualquier guia que indique como descargarlo para su sistema operativo. https://www.postgresql.org/download/
+Para crear Postgresql seguir cualquier guia que indique como descargarlo para su sistema operativo. https://www.postgresql.org/download/. Puede que requiera de librerias adicionales para funcionar con ruby. Si es el caso instalarla libreria: libpq-dev (sudo apt install libpq-dev)
 Una vez descargado, se debe crear una base de datos
 con el nombre turnosbanco_development para el funcionamiento de la app y el usuario de postgress que debe usarla sera:
    - lautarotorchia (username)
@@ -16,11 +16,18 @@ con el nombre turnosbanco_development para el funcionamiento de la app y el usua
    
 ### una vez con todos los pre-requisitos descargados, para ejecutar el servidor Web local se deben hacer los siguientes 3 comandos
 
-  * bundle install (Que instalara todas las dependencias de la aplicacion, detalladas luego)
-  * rails db:reset (Que si ya esta creada la database turnosbanco_development la destruira, creara de nuevo y rellenara con los datos de prueba)
+  * bundle install (Que instalara todas las dependencias de la aplicacion, detalladas luego) 
+  * rails db:create (creara la base de datos)
+  * rails db:migrate (Que realizara todas las migraciones)
+  * rails db:seed (Que llenara la base de datos con informacion del seeds.rb)
   * rails server (Que iniciara el servidor de prueba)
  
+Usuarios Inicial:
+email=admin@admin.com
+contraseña=aaaaaa
+CUENTA DE ADMINISTRADOR
 
+para el resto de cuentas debe crearla desde la interfaz de la aplicacion
 
 ## Decisiones de diseño destacadas:
 
