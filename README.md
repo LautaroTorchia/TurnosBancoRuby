@@ -4,7 +4,7 @@
 ## Manual de Instalacion:
 ### Prerequsitos
     * Ruby version 3.0.4
-    * Ruby on rails gem (gem install rails)
+    * Ruby on rails gem 7.0.4 (gem install rails)
     * Postgresql DBMS y crear una database llamada turnosbanco_development
 
 Para crear Postgresql seguir cualquier guia que indique como descargarlo para su sistema operativo. https://www.postgresql.org/download/
