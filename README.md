@@ -11,7 +11,7 @@ Para crear Postgresql seguir cualquier guia que indique como descargarlo para su
 Una vez descargado, se debe crear una base de datos
 con el nombre turnosbanco_development para el funcionamiento de la app y el usuario de postgress que debe usarla sera:
    - lautarotorchia (username)
-   - passowrd1 (contraseña)
+   - password1 (contraseña)
  
    
 ### una vez con todos los pre-requisitos descargados, para ejecutar el servidor Web local se deben hacer los siguientes 3 comandos
