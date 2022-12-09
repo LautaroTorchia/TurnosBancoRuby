@@ -7,7 +7,8 @@
     * Ruby on rails gem (gem install rails)
     * Postgresql DBMS y crear una database llamada turnosbanco_development
 
-Para crear Postgresql seguir cualquier guia que indique como descargarlo para su sistema operativo. Una vez descargado, se debe crear una base de datos
+Para crear Postgresql seguir cualquier guia que indique como descargarlo para su sistema operativo. https://www.postgresql.org/download/
+Una vez descargado, se debe crear una base de datos
 con el nombre turnosbanco_development para el funcionamiento de la app y el usuario de postgress que debe usarla sera:
    - lautarotorchia (username)
    - passowrd1 (contraseña)
