@@ -14,7 +14,9 @@ con el nombre turnosbanco_development para el funcionamiento de la app y el usua
  
    
 ### una vez con todos los pre-requisitos descargados, para ejecutar el servidor Web local se deben hacer los siguientes 3 comandos
+
   * bundle install (Que instalara todas las dependencias de la aplicacion, detalladas luego)
+  * Ruby version 3.0.4
   * rails db:reset (Que si ya esta creada la database turnosbanco_development la destruira, creara de nuevo y rellenara con los datos de prueba)
   * rails server (Que iniciara el servidor de prueba)
  
